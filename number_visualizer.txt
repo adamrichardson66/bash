@@ -1,0 +1,70 @@
+#100k digits at dimensions 400x250 (wxh)
+#Replace <quotient> with quotient value
+#Change dimensions by changing <400 250> below. Note: product of dimensions must equal 100k
+echo 'scale=100000;<quotient>' | \
+    bc -l | \
+    tr -cd '[[:digit:]]' | \
+    tr '[0-9]' '[A-J]' | \
+    sed 's/A/2 0 0 /g' | \
+    sed 's/B/2 1 0 /g' | \
+    sed 's/C/2 2 0 /g' | \
+    sed 's/D/0 2 0 /g' | \
+    sed 's/E/0 2 1 /g' | \
+    sed 's/F/0 2 2 /g' | \
+    sed 's/G/0 1 2 /g' | \
+    sed 's/H/0 0 2 /g' | \
+    sed 's/I/1 0 2 /g' | \
+    sed 's/J/2 0 2 /g' | \
+    cat <(echo P3 400 250 2) - | \
+    convert ppm:- -filter box -resize 300% <filename>.png
+
+
+
+
+
+
+
+#1 million digits at dimensions 1000x1000 (wxh)
+#Replace <quotient> with quotient value
+#Change dimensions by changing <1000 1000> below. Note: product of dimensions must equal 1 million
+echo 'scale=1000000;<quotient>' | \
+    bc -l | \
+    tr -cd '[[:digit:]]' | \
+    tr '[0-9]' '[A-J]' | \
+    sed 's/A/2 0 0 /g' | \
+    sed 's/B/2 1 0 /g' | \
+    sed 's/C/2 2 0 /g' | \
+    sed 's/D/0 2 0 /g' | \
+    sed 's/E/0 2 1 /g' | \
+    sed 's/F/0 2 2 /g' | \
+    sed 's/G/0 1 2 /g' | \
+    sed 's/H/0 0 2 /g' | \
+    sed 's/I/1 0 2 /g' | \
+    sed 's/J/2 0 2 /g' | \
+    cat <(echo P3 1000 1000 2) - | \
+    convert ppm:- -filter box -resize 300% <filename>.png
+
+
+
+
+
+
+
+#For text files of (at least 1 million) digits   
+#Replace <data file>.txt with your file of digits
+#Change dimensions by changing <1000 1000> below. Note: product of dimensions must equal 1 million
+cat <data file>.txt | cut -c1-1000001 | \
+    tr -cd '[[:digit:]]' | \
+    tr '[0-9]' '[A-J]' | \
+    sed 's/A/2 0 0 /g' | \
+    sed 's/B/2 1 0 /g' | \
+    sed 's/C/2 2 0 /g' | \
+    sed 's/D/0 2 0 /g' | \
+    sed 's/E/0 2 1 /g' | \
+    sed 's/F/0 2 2 /g' | \
+    sed 's/G/0 1 2 /g' | \
+    sed 's/H/0 0 2 /g' | \
+    sed 's/I/1 0 2 /g' | \
+    sed 's/J/2 0 2 /g' | \
+    cat <(echo P3 1000 1000 2) - | \
+    convert ppm:- -filter box -resize 300% <filename>.png
